@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 def create_row(country,beer_servings,spirit_servings,wine_servings, total_litres_of_pure_alcohol):
-    #load_dotenv()
+    load_dotenv()
     DB_HOST = os.getenv("DB_HOST")
     DB_NAME = os.getenv("DB_NAME")
     DB_USER = os.getenv("DB_USER")
@@ -29,7 +29,7 @@ def create_row(country,beer_servings,spirit_servings,wine_servings, total_litres
 
 
 def read_all():
-    #load_dotenv()
+    load_dotenv()
     DB_HOST = os.getenv("DB_HOST")
     DB_NAME = os.getenv("DB_NAME")
     DB_USER = os.getenv("DB_USER")
@@ -53,7 +53,7 @@ def read_all():
 
 
 def update_row(country, beer_servings):
-    #load_dotenv()
+    load_dotenv()
     DB_HOST = os.getenv("DB_HOST")
     DB_NAME = os.getenv("DB_NAME")
     DB_USER = os.getenv("DB_USER")
@@ -75,7 +75,7 @@ def update_row(country, beer_servings):
         print(e)
 
 def delete_row(country):
-    #load_dotenv()
+    load_dotenv()
     DB_HOST = os.getenv("DB_HOST")
     DB_NAME = os.getenv("DB_NAME")
     DB_USER = os.getenv("DB_USER")
@@ -98,7 +98,7 @@ def delete_row(country):
 
 
 def general(query):
-    #load_dotenv()
+    load_dotenv()
     DB_HOST = os.getenv("DB_HOST")
     DB_NAME = os.getenv("DB_NAME")
     DB_USER = os.getenv("DB_USER")

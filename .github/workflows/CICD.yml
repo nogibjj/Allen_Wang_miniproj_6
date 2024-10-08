@@ -14,12 +14,11 @@ jobs:
       - name: install packages
         run: make install
       - name: Set environment variables
-        env:
-          DB_HOST: ids-miniproj6.crqcc88sk2vd.us-west-2.rds.amazonaws.com
-          DB_NAME: miniproj6
-          DB_USER: zijunw
-          DB_PASSWORD: wzj010202Z!
-        run: echo "Environment variables set"
+        run: |
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
       - name: transform
         run: make transform
       - name: query1
