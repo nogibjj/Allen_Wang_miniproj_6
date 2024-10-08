@@ -8,7 +8,6 @@ def test_transform():
             "python",
             "main.py",
             "transform",
-            "drink.db",
             "https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv",
         ],
         capture_output=True,
