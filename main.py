@@ -46,10 +46,8 @@ def main():
         )
     elif args.action == "read":
         data = read_all()
-        print(1)
         for row in data:
             print(row)
-        print(3)
     elif args.action == "update":
         update_row(args.country, args.beer_servings)
     elif args.action == "delete":
