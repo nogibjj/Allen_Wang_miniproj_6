@@ -14,6 +14,13 @@ jobs:
       - name: install packages
         run: make install
       - name: transform
+      - name: Set environment variables
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: echo "Environment variables set"
         run: make transform
       - name: query1
         run: make query1
