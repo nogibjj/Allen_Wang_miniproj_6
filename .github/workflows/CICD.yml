@@ -21,10 +21,8 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
       - name: transform
         run: make transform
-      - name: query1
-        run: make query1
-      - name: query2
-        run: make query2
+      - name: query3
+        run: make query3
       - name: lint
         run: make lint
       - name: test

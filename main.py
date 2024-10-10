@@ -26,7 +26,8 @@ def handle_arguments(args):
         parser.add_argument("country")
 
     elif args.action == "transform":
-        parser.add_argument("url")
+        parser.add_argument("url1")
+        parser.add_argument("url2")
 
     elif args.action == "general":
         parser.add_argument("query")
@@ -53,9 +54,12 @@ def main():
     elif args.action == "delete":
         delete_row(args.country)
     elif args.action == "transform":
-        csv_to_db(args.url)
+        csv_to_db(args.url1,args.url2)
     elif args.action == "general":
-        general(args.query)
+        data = general(args.query)
+        if data:
+            for row in data:
+                print(row)
     else:
         print(f"Unknown action: {args.action}")
 

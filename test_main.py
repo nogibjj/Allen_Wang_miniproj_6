@@ -8,7 +8,8 @@ def test_transform():
             "python",
             "main.py",
             "transform",
-            "https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv",
+            "https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv",   
+            "https://raw.githubusercontent.com/fivethirtyeight/data/master/drug-use-by-age/drug-use-by-age.csv"
         ],
         capture_output=True,
         text=True,
@@ -88,10 +89,9 @@ def test_general():
 
 
 if __name__ == "__main__":
-
     test_transform()
-    test_create_row()
+    #test_create_row()
     test_read_all()
-    test_update_row()
-    test_delete_row()
+    #test_update_row()
+    #test_delete_row()
     test_general()

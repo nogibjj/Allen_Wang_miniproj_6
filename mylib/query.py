@@ -41,7 +41,7 @@ def read_all():
             user=DB_USER,
             password=DB_PASSWORD,
         )
-        sql = '''SELECT * FROM drink'''
+        sql = '''SELECT * FROM drug_use'''
         cursor = conn.cursor()
         cursor.execute(sql)
         rows = cursor.fetchall()
