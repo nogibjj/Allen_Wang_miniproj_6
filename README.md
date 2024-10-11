@@ -63,7 +63,7 @@ This query is designed to find the top 5 countries with the highest total beer s
 | Lithuania       | 343                | 22-23     | 84.2            | 52.0              |
 
 This result shows the top 5 countries with the highest beer servings and the age group `22-23`, which has the maximum alcohol use across all countries at `84.2%`, with a median usage frequency of `52` times in the last 12 months.
-```
+
 
 
 ## Setup
@@ -71,8 +71,8 @@ This result shows the top 5 countries with the highest beer servings and the age
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/nogibjj/Allen_Wang_miniproj_5.git
-    cd Allen_Wang_miniproj_5
+    git clone https://github.com/nogibjj/Allen_Wang_miniproj_6.git
+    cd Allen_Wang_miniproj_6
     ```
 
 2. **Install dependencies**:
