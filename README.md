@@ -1,10 +1,10 @@
-# Allen_Wang_miniproj_5
+# Allen_Wang_miniproj_6
 
-[![CI](https://github.com/nogibjj/Allen_Wang_miniproj_5/actions/workflows/CICD.yml/badge.svg)](https://github.com/nogibjj/Allen_Wang_miniproj_5/actions/workflows/CICD.yml)
+[![CI](https://github.com/nogibjj/Allen_Wang_miniproj_6/actions/workflows/CICD.yml/badge.svg)](https://github.com/nogibjj/Allen_Wang_miniproj_6/actions/workflows/CICD.yml)
 
 ## Overview
 
-This project demonstrates connecting to a SQL database, performing CRUD operations (Create, Read, Update, Delete), and writing two distinct SQL queries. The project is implemented in Python, with CI/CD setup for testing and validation.
+This project demonstrates connecting to a external MySQL database, performing a complex SQL query involving joins, aggregation, and sorting. The project is implemented in Python, with RDS datbase connection and CI/CD setup for testing and validation.
 
 ## Project Structure
 
@@ -16,33 +16,54 @@ This project demonstrates connecting to a SQL database, performing CRUD operatio
   - `make test`: Runs tests.
   - `make all`: Runs all tasks (install, format, lint, and test).
   - `make transform`: Transforms data and stores it in the `drink.db` database.
-  - `make query1`: Inserts a new record into the `drink` table.
-  - `make query2`: Updates an existing record in the `drink` table.
+  - `make query3`: Run the complex SQL query
+
 - **.github/workflows/ci.yml**: CI/CD pipeline configuration.
 - **main.py**: Python script to handle data transformation, and database queries.
 - **README.md**: Setup, usage instructions, and project description.
 
-## CRUD Operations
+## Complex SQL Query
 
-- **Create**: Insert new records into the database.
-    ```bash
-    Python main.py create $(country name) $(beer servings) $(spirit servings) $(wine servings) $(total litres_of_pure_alcohol)
-    ```
+```sql
+SELECT 
+    tc.country,
+    tc.total_beer_servings,
+    u.age_group,
+    u.alcohol_use,
+    u.alcohol_frequency
+FROM 
+    (SELECT country, SUM(beer_servings) AS total_beer_servings 
+     FROM drink 
+     GROUP BY country 
+     ORDER BY total_beer_servings DESC 
+     LIMIT 5) AS tc
+JOIN 
+    drug_use u 
+ON 
+    u.alcohol_use = (SELECT MAX(alcohol_use) FROM drug_use) 
+ORDER BY 
+    tc.total_beer_servings DESC, u.alcohol_use DESC;
+```
 
-- **Read**: Select and retrieve data.
-    ```bash
-    Python main.py read
-    ```
+### Explanation
+This query is designed to find the top 5 countries with the highest total beer servings and the corresponding age group with the maximum alcohol use.
 
-- **Update**: Modify existing records.
-    ```bash
-    Python main.py update $(country name) $(beer servings)
-    ```
+- First, the subquery calculates the total beer servings per country by summing `beer_servings` from the `drink` table and selecting only the top 5 countries with the highest values, sorted in descending order.
+- Next, this subquery result (`tc`) is joined with the `drug_use` table, where the age group is selected based on the highest recorded alcohol use (`MAX(alcohol_use)`).
+- The final output shows the country, total beer servings, age group with the maximum alcohol use, and the median alcohol usage frequency for each of these countries. The results are sorted by the total beer servings in descending order, followed by the alcohol use in descending order.
 
-- **Delete**: Remove records from the database.
-    ```bash
-    Python main.py delete $(country name)
-    ```
+### Expected Result
+
+| Country         | Total Beer Servings | Age Group | Alcohol Use (%) | Alcohol Frequency |
+|-----------------|--------------------|-----------|-----------------|-------------------|
+| Namibia         | 376                | 22-23     | 84.2            | 52.0              |
+| Czech Republic  | 361                | 22-23     | 84.2            | 52.0              |
+| Gabon           | 347                | 22-23     | 84.2            | 52.0              |
+| Germany         | 346                | 22-23     | 84.2            | 52.0              |
+| Lithuania       | 343                | 22-23     | 84.2            | 52.0              |
+
+This result shows the top 5 countries with the highest beer servings and the age group `22-23`, which has the maximum alcohol use across all countries at `84.2%`, with a median usage frequency of `52` times in the last 12 months.
+```
 
 
 ## Setup
@@ -77,22 +98,3 @@ This project demonstrates connecting to a SQL database, performing CRUD operatio
     ```bash
     make test
     ```
-## Demonstration of Database Changes
-
-The following changes were made to the `drink` table in the `drink.db` database through CI/CD and test_main.py:
-
-1. **Deleted** the record for the country **Canada**.
-   ![Updated Database Table](img/canada.png)
-   ![Updated Database Table](img/canada_delete.png)
-
-2. **Updated** the record for the country **USA**:
-   - `beer_servings = 15`
-   - `total_litres_of_pure_alcohol = -0.1`
-  
-    ![Updated Database Table](img/usa.png)
-
-3. **Added** a new record for the country **USB**.
-   ![Updated Database Table](img/usb.png)
-
-4. **Added** a new record for the country **USC**.
-   ![Updated Database Table](img/usc.png)

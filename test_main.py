@@ -79,7 +79,7 @@ def test_general():
             "python",
             "main.py",
             "general",
-            "UPDATE drink SET beer_servings = 100 WHERE country = USB",
+            "SELECT tc.country, tc.total_beer_servings, u.age_group, u.alcohol_use, u.alcohol_frequency FROM (SELECT country, SUM(beer_servings) AS total_beer_servings FROM drink GROUP BY country ORDER BY total_beer_servings DESC LIMIT 5) AS tc JOIN drug_use u ON u.alcohol_use = (SELECT MAX(alcohol_use) FROM drug_use) ORDER BY tc.total_beer_servings DESC, u.alcohol_use DESC;",
         ],
         capture_output=True,
         text=True,
