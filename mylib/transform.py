@@ -23,7 +23,7 @@ def csv_to_db(url1,url2):
 
         response = requests.get(url1)
         if response.status_code != 200:
-            raise Exception(f"Failed to fetch data from {url}. Status code: {response.status_code}")
+            raise Exception(f"Failed to fetch data from {url1}. Status code: {response.status_code}")
 
         csv_data = response.text
         cursor.execute('''
